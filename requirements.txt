@@ -7,3 +7,10 @@ gradio==5.29.0
 Pillow==11.2.1
 accelerate==1.6.0
 bitsandbytes==0.45.5
+autogen-agentchat==0.5.7
+autogen-core==0.5.7
+autogen-ext[openai,azure]==0.5.7
+wikipedia==1.4.0
+arxiv==2.2.0
+scipy==1.15.2
+langchain-community==0.3.24
