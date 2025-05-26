@@ -35,7 +35,7 @@ captioner_agent = AssistantAgent(
     - Contextual or inferred information (e.g., likely setting, era, or activity)
 
     Avoid adding information that is not visible or cannot be reasonably inferred from the image. Do not speculate or inject personal opinion unless explicitly requested. If text appears in the image, transcribe it accurately.
-    Use the tools as needed to complete assigned tasks.
-    After completing your task , respond to the supervisor directly
+    After generating the final answer, you MUST call: transfer_to_dispatcher()
     """,
+    handoffs=["VisionAgent"],
 )

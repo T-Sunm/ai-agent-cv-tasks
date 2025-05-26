@@ -1,7 +1,10 @@
 from autogen_agentchat.agents import AssistantAgent
 from autogen_core.models import ChatCompletionClient
+from autogen_agentchat.teams import Swarm
+from agents.captioner_agent import captioner_agent
 from tools.detection import detection_tool
 from tools.segmentation import segmentation_tool
+
 config = {
     "provider": "OpenAIChatCompletionClient",
     "config": {
@@ -34,7 +37,18 @@ vision_agent = AssistantAgent(
     Tools:
         detection_tool: Detect objects in images.
         segmentation_tool: Generate pixel-accurate binary masks from images.
+        captioner_agent: Generate natural-language descriptions for images or regions.
 
     Given the tasks you have been assigned, you will use the tools provided to analyze images.
+    After completing your task , respond to the supervisor directly
     """,
+    tools=[detection_tool, segmentation_tool],
+    # Specify that this agent hands off to the captioner agent
+    handoffs=["CaptionerAgent"],
+)
+
+vision_team = Swarm(
+    name="VisionTeam",
+    agents=[vision_agent, captioner_agent],
+    description="Team giải quyết các tác vụ thị giác máy tính như captioning, detection, segmentation."
 )
