@@ -10,7 +10,7 @@ config = {
         "model_info": {
             "name": "qwen2-vl-2b-instruct",
             "family": "openai",
-            "supports_tool_calling": False,
+            "supports_tool_calling": True,
             "supports_json_mode": True,
             "structured_output": True,
             "json_output": True,
@@ -34,8 +34,7 @@ captioner_agent = AssistantAgent(
     - Actions or dynamics, if any (e.g., people walking, water flowing)
     - Contextual or inferred information (e.g., likely setting, era, or activity)
 
-    Avoid adding information that is not visible or cannot be reasonably inferred from the image. Do not speculate or inject personal opinion unless explicitly requested. If text appears in the image, transcribe it accurately.
-    After generating the final answer, you MUST call: transfer_to_dispatcher()
+    Given the tasks you have been assigned, you will use the tools provided to complete them.
     """,
     handoffs=["VisionAgent"],
 )

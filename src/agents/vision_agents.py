@@ -17,7 +17,7 @@ config = {
         "model_info": {
             "name": "qwen3-1.7b",
             "family": "openai",
-            "supports_tool_calling": False,
+            "supports_tool_calling": True,
             "supports_json_mode": True,
             "structured_output": True,
             "json_output": True,
@@ -37,16 +37,13 @@ vision_agent = AssistantAgent(
     description="An agent for analyzing images using detection and segmentation tools.",
     model_client=client,
     system_message="""
-    You are a vision agent.
-    Your job is Analyzing images.
+    You are a vision agent and your job is Analyzing images.
     Tools:
         detection_tool: Detect objects in images.
         segmentation_tool: Generate pixel-accurate binary masks from images.
-        captioner_agent: Generate natural-language descriptions for images or regions.
+        captioner_tool: Generate natural-language descriptions for images or regions.
 
-    Given the tasks you have been assigned, you will use the tools provided to analyze images.
-    After completing your task and formulating your response to the supervisor, you MUST explicitly state who should speak next by ending your message with a line:
-    'NEXT_SPEAKER: PlanningAgent'
+    Given the tasks you have been assigned, you will use the tools provided to complete them.
     """,
     tools=[detection_tool, segmentation_tool, captioner_tool],
 )

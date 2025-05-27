@@ -39,8 +39,7 @@ research_agent = AssistantAgent(
     - Prefer high-quality, reputable, and recent sources
     - Avoid speculative or non-verifiable content
     
-    Use the tools as needed to complete assigned tasks.
-    After completing your task , respond to the supervisor directly
+    Given the tasks you have been assigned, you will use the tools provided to complete them.
     """,
     tools=[wikipedia_article_tool, arxiv_search_tool]
 )
