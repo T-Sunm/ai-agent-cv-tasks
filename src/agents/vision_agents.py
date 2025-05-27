@@ -1,9 +1,12 @@
 from autogen_agentchat.agents import AssistantAgent
 from autogen_core.models import ChatCompletionClient
 from autogen_agentchat.teams import Swarm
+from autogen_agentchat.conditions import MaxMessageTermination, TextMentionTermination
 from agents.captioner_agent import captioner_agent
 from tools.detection import detection_tool
 from tools.segmentation import segmentation_tool
+from autogen_agentchat.ui import Console
+from autogen_agentchat.tools import AgentTool
 
 config = {
     "provider": "OpenAIChatCompletionClient",
@@ -26,6 +29,8 @@ config = {
 }
 
 client = ChatCompletionClient.load_component(config)
+captioner_tool = AgentTool(
+    agent=captioner_agent)
 
 vision_agent = AssistantAgent(
     "VisionAgent",
@@ -40,15 +45,8 @@ vision_agent = AssistantAgent(
         captioner_agent: Generate natural-language descriptions for images or regions.
 
     Given the tasks you have been assigned, you will use the tools provided to analyze images.
-    After completing your task , respond to the supervisor directly
+    After completing your task and formulating your response to the supervisor, you MUST explicitly state who should speak next by ending your message with a line:
+    'NEXT_SPEAKER: PlanningAgent'
     """,
-    tools=[detection_tool, segmentation_tool],
-    # Specify that this agent hands off to the captioner agent
-    handoffs=["CaptionerAgent"],
-)
-
-vision_team = Swarm(
-    name="VisionTeam",
-    agents=[vision_agent, captioner_agent],
-    description="Team giải quyết các tác vụ thị giác máy tính như captioning, detection, segmentation."
+    tools=[detection_tool, segmentation_tool, captioner_tool],
 )

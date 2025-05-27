@@ -11,7 +11,7 @@ config = {
         "model_info": {
             "name": "qwen3-1.7b",
             "family": "openai",
-            "supports_tool_calling": False,
+            "supports_tool_calling": True,
             "supports_json_mode": True,
             "structured_output": True,
             "json_output": True,
