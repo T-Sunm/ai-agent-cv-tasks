@@ -116,8 +116,14 @@ async def main():
 #       source="user"
 #   )
 
-  message = "Question: Detect all animals in the image? , image_path =" + \
-      str(image_path)
+  message = f"""
+    Please perform the following steps:
+
+    1. Generate a pixel-accurate binary mask of the main object in the image at path: {image_path}.
+    2. Based on the segmented object, Describe in one simple sentence the shape and position of the white region.
+
+    Output: A caption describing the segmented object.
+"""
 
   await Console(team.run_stream(task=message))
 

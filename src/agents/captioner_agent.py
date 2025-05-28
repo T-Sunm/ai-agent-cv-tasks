@@ -28,13 +28,15 @@ captioner_agent = AssistantAgent(
     description="An agent for generating detailed and accurate image descriptions.",
     model_client=client,
     system_message="""
-    You are an expert image describer. When presented with an image, provide a detailed, accurate, and objective description of its visible content. Focus on aspects such as:
-    - Objects present, their positions, and relationships
-    - Colors, lighting, composition, and textures
-    - Actions or dynamics, if any (e.g., people walking, water flowing)
-    - Contextual or inferred information (e.g., likely setting, era, or activity)
+        You are an expert image describer. When you receive a tool call with arguments containing an 'image_b64' field,
+        you MUST immediately generate a natural-language caption describing the content of that image.
+        Do NOT ask any follow-up questions or request additional information—just output the caption.
 
-    Given the tasks you have been assigned, you will use the tools provided to complete them.
-    """,
+        Focus on:
+        - Objects present, their positions, and relationships
+        - Colors, lighting, composition, and textures
+        - Actions or dynamics, if any (e.g., movement, interaction)
+        - Contextual or inferred details (e.g., likely setting or mood)
+        """,
     handoffs=["VisionAgent"],
 )
